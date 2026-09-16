@@ -1,0 +1,1 @@
+{"name":"b777-performance-lab","version":"3.0.0","private":true,"description":"Mobile web interface with local Python calculations","scripts":{"test":"node tests/test_wasm.cjs"},"devDependencies":{"pyodide":"0.27.7"}}
