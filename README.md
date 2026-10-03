@@ -4,6 +4,9 @@ A responsive browser app for exploring 777-300ER cruise fuel estimates. Python
 runs on the device through a pinned Pyodide 0.27.7 WebAssembly runtime, in a web
 worker. No Python server or API key is required.
 
+Local development also supports CPython through `b777_calculator.py`, using
+the same scalar calculation package without downloading a browser runtime.
+
 Educational estimates only: this is not Boeing-certified software and must not
 be used for flight planning, dispatch, or real aircraft operation. Independent
 aircraft-data validation has not established an accuracy percentage.
@@ -16,12 +19,36 @@ aircraft-data validation has not established an accuracy percentage.
 - Evidence: model limitations, sources and local reference-data evaluation.
 - JSON results, CSV cruise trace and home-screen metadata/icons.
 
-The runtime downloads from jsDelivr on first use. Internet access is required to
-load the runtime and app sources; offline installation is not implemented.
-Inputs and uploaded reference data are processed locally, not sent to a calculation server.
+On static hosting, the runtime downloads from jsDelivr on first use. Internet
+access is required to load it; offline installation is not implemented.
+The local launcher works without internet access. Inputs and uploaded reference
+data stay on the device, using browser Python or the loopback Python server.
 Hosting providers and the runtime CDN still receive normal asset requests.
 
 ## Run locally
+
+For development, run the local Python launcher (Python 3.10+; no extra packages):
+
+```bash
+python b777_calculator.py --gui
+```
+
+On Windows with Codex, `./Start-Lab.ps1` uses the bundled Python automatically.
+
+This opens http://127.0.0.1:8000 and executes the existing deployed Python model
+locally, without a CDN download. The server accepts connections only from this
+computer and serves the `dist` folder. Stop it with Ctrl+C. Use `--no-browser`
+to keep browser launch manual, or `--port 8001` if port 8000 is occupied.
+
+The same engine supports command-line experiments with JSON output:
+
+```bash
+python b777_calculator.py snapshot --mass-kg 280000 --headwind-kt 50
+python b777_calculator.py cruise --distance-nmi 1500
+python b777_calculator.py compare
+```
+
+For the static-hosted browser/Pyodide version, use:
 
 From the project folder:
 
@@ -53,6 +80,14 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-
 
 ## Verification
 
+The local launcher and model can be checked without installing dependencies:
+
+```bash
+python -m unittest discover -s tests -p test_local.py -v
+```
+
+The original desktop-reference and WebAssembly checks require their dependencies:
+
 ```bash
 python -m pip install -r reference/requirements.txt
 python tests/test_parity.py
@@ -66,9 +101,17 @@ cruise segments. Four parity tests passed. Seven runtime checks passed inside
 Pyodide 0.27.7 under Node, using the actual browser Python source package.
 JavaScript syntax and local file references were checked.
 
-These tests are not interactive browser/device tests. Mobile layout, downloads
-and controls still need an end-to-end check on an actual phone before a public
-portfolio demonstration. No independent B777 aircraft-accuracy percentage is established.
+The statements above describe verification from the imported project. During the
+local handoff, eight launcher/HTTP tests and 21 existing physics, simulation and
+reference-evaluation tests passed against the scalar Python package. OpenAP
+cross-implementation/parity and Pyodide tests were not rerun: their optional
+dependencies are not installed in this workspace.
+
+The local interface was checked in the Codex browser: initial calculation,
+edited headwind, reset, a 1,500 nmi cruise, chart, comparisons and a 390 px
+viewport. Download automation timed out, so JSON/CSV downloads and actual phone
+behavior still need verification. No independent B777 aircraft-accuracy
+percentage is established.
 
 ## Structure
 
@@ -78,6 +121,8 @@ portfolio demonstration. No independent B777 aircraft-accuracy percentage is est
 - `dist/app.js`, `style.css`, `index.html`: interface and presentation only.
 - `reference/`: desktop implementation for numerical comparisons.
 - `tests/`: parity and WebAssembly checks.
+- `b777_calculator.py`: local web server and JSON command-line experiments.
+- `PROJECT_CONTEXT.md`: source commit and recovered ChatGPT project requirements.
 
 See `dist/MODEL.md` and `dist/THIRD_PARTY_NOTICES.md` for model scope and attribution.
 No secrets or credentials are included.

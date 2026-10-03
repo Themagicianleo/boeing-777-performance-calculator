@@ -55,6 +55,12 @@ taxi, climb, descent, APU and regulatory reserve calculations.
 Interactive browser and real-device verification remain outstanding. Matching a
 shared model does not establish accuracy against actual aircraft measurements.
 
+Local handoff update (3 October 2026): the loopback CPython launcher passed eight
+HTTP/CLI tests. Twenty-one existing atmosphere, physics, integration and data-fit
+checks also passed against the scalar engine. The local browser interface was
+checked for calculations, edited wind, reset, cruise, chart, comparisons and a
+phone-sized viewport. Real-device and download checks remain outstanding.
+
 ## Scope and limitations
 
 Mach 0.70–0.84, pressure altitude 20,000–41,000 ft, ISA deviation −25 to +15 °C.

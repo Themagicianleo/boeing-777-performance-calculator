@@ -30,7 +30,7 @@ function launchWorker() {
   ready = false; busy = false; pending = null; latest = null;
   $('#retry').hidden = true;
   $('#runtime-state').textContent = 'Loading Python…';
-  setStatus('Downloading the Python runtime. First load may take a moment.');
+  setStatus('Starting the Python engine. First browser load may take a moment.');
   buttons();
   worker = new Worker(new URL('./worker.js', import.meta.url));
   const timer = setTimeout(() => {
@@ -49,7 +49,7 @@ function launchWorker() {
   worker.onmessage = ({data}) => {
     if (data.type === 'ready') {
       clearTimeout(timer); ready = true;
-      $('#runtime-state').textContent = 'Python ready';
+      $('#runtime-state').textContent = data.runtime === 'local' ? 'Local Python ready' : 'Browser Python ready';
       buttons(); run('snapshot', false); return;
     }
     if (data.type === 'init-error') {
