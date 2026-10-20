@@ -186,20 +186,21 @@ function chart(result) {
   const svg=$('#cruise-chart'); svg.replaceChildren();
   const points=result.points, maxX=Math.max(1,result.request.distance_nmi), maxY=points[0].remaining_fuel_kg/1000*1.08;
   const x = n => 64+n/maxX*610, y=n=>260-n/maxY*220;
+  svg.setAttribute('font-family','"Plex Mono",ui-monospace,monospace');
   svg.append(svgNode('title',{},'Remaining fuel versus ground distance'),svgNode('desc',{},result.stop_reason));
   for (let tick=0;tick<=4;tick++) {
     const v=maxY*tick/4, yy=y(v);
-    svg.append(svgNode('line',{x1:64,x2:674,y1:yy,y2:yy,stroke:'#e1e7ef'}));
-    svg.append(svgNode('text',{x:53,y:yy+4,'text-anchor':'end',fill:'#52677f','font-size':14},format(v,0)));
+    svg.append(svgNode('line',{x1:64,x2:674,y1:yy,y2:yy,stroke:'#d6d1c4'}));
+    svg.append(svgNode('text',{x:53,y:yy+4,'text-anchor':'end',fill:'#4b5056','font-size':14},format(v,0)));
     const xx=maxX*tick/4;
-    svg.append(svgNode('text',{x:x(xx),y:284,'text-anchor':'middle',fill:'#52677f','font-size':14},format(xx,0)));
+    svg.append(svgNode('text',{x:x(xx),y:284,'text-anchor':'middle',fill:'#4b5056','font-size':14},format(xx,0)));
   }
-  svg.append(svgNode('text',{x:64,y:20,fill:'#52677f','font-size':14},'Remaining fuel · tonnes'));
-  svg.append(svgNode('text',{x:674,y:306,'text-anchor':'end',fill:'#52677f','font-size':14},'Distance · nmi'));
+  svg.append(svgNode('text',{x:64,y:20,fill:'#4b5056','font-size':14},'Remaining fuel · tonnes'));
+  svg.append(svgNode('text',{x:674,y:306,'text-anchor':'end',fill:'#4b5056','font-size':14},'Distance · nmi'));
   const path=points.map((p,i)=>(i?'L':'M')+x(p.distance_nmi).toFixed(2)+','+y(p.remaining_fuel_kg/1000).toFixed(2)).join(' ');
-  svg.append(svgNode('path',{d:path,fill:'none',stroke:'#215cf0','stroke-width':3}));
+  svg.append(svgNode('path',{d:path,fill:'none',stroke:'#1c1e21','stroke-width':2}));
   const floor=y(result.request.protected_fuel_kg/1000);
-  svg.append(svgNode('line',{x1:64,x2:674,y1:floor,y2:floor,stroke:'#b87727','stroke-width':1.5,'stroke-dasharray':'5 5'}));
+  svg.append(svgNode('line',{x1:64,x2:674,y1:floor,y2:floor,stroke:'#c4501c','stroke-width':1.5,'stroke-dasharray':'5 5'}));
 }
 function renderComparison(result) {
   changeTab('compare'); const rows=result.comparisons || result.sensitivity;

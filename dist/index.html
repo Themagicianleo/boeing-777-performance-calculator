@@ -2,14 +2,56 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0a1838"><meta name="description" content="Explore Boeing 777-300ER cruise performance with a Python-powered research calculator.">
-<title>B777 Performance Lab</title><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./style.css">
+<meta name="theme-color" content="#f3f0e8"><meta name="description" content="Explore Boeing 777-300ER cruise performance with a Python-powered research calculator.">
+<title>B777 Performance Lab</title><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="./manifest.webmanifest"><link rel="preload" href="./fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="./fonts/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<header class="hero">
-<div class="topbar"><a class="brand" href="./"><span class="brand-mark">777</span><span>PERFORMANCE LAB<small>BOEING 777-300ER · GE90-115B</small></span></a><span class="research-label">RESEARCH EDITION <b>03</b></span></div>
-<div class="page-heading"><div><p class="eyebrow">FLIGHT PERFORMANCE / CRUISE</p><h1>Explore the numbers<br class="mobile-break"> behind the flight.</h1><p class="lede">Mass, atmosphere, speed, thrust and wind — see how each one moves cruise fuel burn.</p></div><div class="runtime"><span id="runtime-state">Loading Python…</span><small>Calculations stay on this device.</small><button id="retry" hidden>Retry loading</button></div></div>
-<img class="hero-plane" src="./plane.svg" alt="" aria-hidden="true" width="1000" height="300">
+<header class="masthead">
+<div class="strip"><a class="brand" href="./"><span class="brand-mark">777</span>Performance Lab</a><span class="strip-meta">B777-300ER / GE90-115B / OpenAP 2.6.1 <span>Rev 03</span></span></div>
+<div class="intro">
+<div class="intro-text"><p class="eyebrow">Cruise performance study</p><h1>How a 777-300ER burns fuel in cruise.</h1><p class="lede">Set the mass, altitude, Mach number, temperature and wind. A parabolic drag polar sets the thrust needed for steady, level flight, and an OpenAP-derived GE90-115B model turns that thrust into fuel flow.</p><div class="runtime"><span id="runtime-state">Loading Python…</span><small>Calculations stay on this device.</small><button id="retry" hidden>Retry loading</button></div></div>
+<figure class="plate">
+<svg class="drawing" viewBox="0 0 880 372" role="img" aria-labelledby="drawing-title">
+<title id="drawing-title">Side elevation of a Boeing 777-300ER: 73.86 m long and 18.5 m tall, with GE90-115B engines</title>
+<g class="d-thin">
+<path d="M24 304H856"/><path d="M40 304l-8 8"/><path d="M56 304l-8 8"/><path d="M72 304l-8 8"/><path d="M88 304l-8 8"/><path d="M104 304l-8 8"/><path d="M120 304l-8 8"/><path d="M136 304l-8 8"/><path d="M152 304l-8 8"/><path d="M168 304l-8 8"/><path d="M184 304l-8 8"/><path d="M200 304l-8 8"/><path d="M216 304l-8 8"/><path d="M232 304l-8 8"/><path d="M248 304l-8 8"/><path d="M264 304l-8 8"/><path d="M280 304l-8 8"/><path d="M296 304l-8 8"/><path d="M312 304l-8 8"/><path d="M328 304l-8 8"/><path d="M344 304l-8 8"/><path d="M360 304l-8 8"/><path d="M376 304l-8 8"/><path d="M392 304l-8 8"/><path d="M408 304l-8 8"/><path d="M424 304l-8 8"/><path d="M440 304l-8 8"/><path d="M456 304l-8 8"/><path d="M472 304l-8 8"/><path d="M488 304l-8 8"/><path d="M504 304l-8 8"/><path d="M520 304l-8 8"/><path d="M536 304l-8 8"/><path d="M552 304l-8 8"/><path d="M568 304l-8 8"/><path d="M584 304l-8 8"/><path d="M600 304l-8 8"/><path d="M616 304l-8 8"/><path d="M632 304l-8 8"/><path d="M648 304l-8 8"/><path d="M664 304l-8 8"/><path d="M680 304l-8 8"/><path d="M696 304l-8 8"/><path d="M712 304l-8 8"/><path d="M728 304l-8 8"/><path d="M744 304l-8 8"/><path d="M760 304l-8 8"/><path d="M776 304l-8 8"/><path d="M792 304l-8 8"/><path d="M808 304l-8 8"/><path d="M824 304l-8 8"/><path d="M840 304l-8 8"/><path d="M856 304l-8 8"/>
+</g>
+<g class="d-body">
+<path d="M210 214Q166 210 144 182L92 111H54L66 240"/>
+<path d="M60 239C78 223 106 215 146 213L718 211C766 211 794 221 810 237C818 245 817 254 806 261C788 271 758 274 728 274H258C190 274 133 267 90 255C76 251 64 245 60 239Z"/>
+<path d="M168 250L78 232L64 235L70 241L150 261Z"/>
+<path d="M525 266L298 238L276 236L280 242L392 270Z"/>
+<path d="M512 258.5L462 260L452 254L500 252Z"/>
+<path d="M528 258C535 258 538 267 538 276C538 285 535 294 528 294L458 292C446 290 436 284 432 278L428 276L432 274C436 268 446 262 458 260Z"/>
+<ellipse cx="533.5" cy="276" rx="4" ry="17"/>
+<path d="M432 273.5L414 276L432 278.5Z"/>
+<path d="M380 274V290M362 291H398M735 274V291"/>
+<circle cx="365" cy="297" r="7"/><circle cx="380" cy="297" r="7"/><circle cx="395" cy="297" r="7"/><circle cx="735" cy="297.5" r="6.5"/>
+</g>
+<g class="d-detail">
+<path d="M774 223.5L794 224.5L800 232L778 231.5Z"/>
+<path d="M166.0 225.2h3.2M173.4 225.2h3.2M180.8 225.2h3.2M203.0 225.2h3.2M210.4 225.2h3.2M217.8 225.2h3.2M225.2 225.2h3.2M232.6 225.2h3.2M240.0 225.2h3.2M247.4 225.2h3.2M269.6 225.2h3.2M277.0 225.2h3.2M284.4 225.2h3.2M291.8 225.2h3.2M299.2 225.2h3.2M306.6 225.2h3.2M314.0 225.2h3.2M321.4 225.2h3.2M328.8 225.2h3.2M336.2 225.2h3.2M343.6 225.2h3.2M351.0 225.2h3.2M358.4 225.2h3.2M365.8 225.2h3.2M373.2 225.2h3.2M380.6 225.2h3.2M388.0 225.2h3.2M410.2 225.2h3.2M417.6 225.2h3.2M425.0 225.2h3.2M432.4 225.2h3.2M439.8 225.2h3.2M447.2 225.2h3.2M454.6 225.2h3.2M462.0 225.2h3.2M469.4 225.2h3.2M476.8 225.2h3.2M484.2 225.2h3.2M491.6 225.2h3.2M499.0 225.2h3.2M506.4 225.2h3.2M513.8 225.2h3.2M521.2 225.2h3.2M528.6 225.2h3.2M536.0 225.2h3.2M543.4 225.2h3.2M550.8 225.2h3.2M558.2 225.2h3.2M580.4 225.2h3.2M587.8 225.2h3.2M595.2 225.2h3.2M602.6 225.2h3.2M610.0 225.2h3.2M617.4 225.2h3.2M624.8 225.2h3.2M632.2 225.2h3.2M639.6 225.2h3.2M647.0 225.2h3.2M654.4 225.2h3.2M661.8 225.2h3.2M669.2 225.2h3.2M676.6 225.2h3.2M684.0 225.2h3.2M691.4 225.2h3.2M713.6 225.2h3.2M721.0 225.2h3.2"/>
+<rect x="186.5" y="218" width="7" height="17" rx="1.5"/><rect x="254.5" y="218" width="7" height="17" rx="1.5"/><rect x="394.5" y="218" width="7" height="17" rx="1.5"/><rect x="564.5" y="218" width="7" height="17" rx="1.5"/><rect x="699.5" y="218" width="7" height="17" rx="1.5"/>
+<path d="M482 260V292"/>
+</g>
+<g class="d-dim">
+<path d="M60 244V346M817 250V346M60 338H817"/><path d="M56 342L64 334"/><path d="M813 342L821 334"/>
+<path d="M48 111H18M48 304H18M26 111V304"/><path d="M22 115L30 107"/><path d="M22 308L30 300"/>
+<path d="M470 293L520 344H610"/>
+<path d="M600 211L640 160H730"/>
+</g>
+<g class="d-label">
+<text x="438.5" y="334" text-anchor="middle">73.86 m</text>
+<text x="0" y="0" transform="translate(20 207) rotate(-90)" text-anchor="middle">18.5 m</text>
+<text x="614" y="348">GE90-115B ×2</text>
+<text x="734" y="164">Ø 6.20 m</text>
+<text x="856" y="20" text-anchor="end" class="d-title">777-300ER · SIDE ELEVATION</text>
+<text x="856" y="36" text-anchor="end">ILLUSTRATIVE · NOT FOR MEASUREMENT</text>
+</g>
+</svg>
+<dl class="specs"><div><dt>Length</dt><dd>73.86 m</dd></div><div><dt>Span</dt><dd>64.80 m</dd></div><div><dt>Wing area</dt><dd>436.8 m²</dd></div><div><dt>MTOW</dt><dd>351,534 kg</dd></div></dl>
+</figure>
+</div>
 </header>
 <main>
 <nav class="tabs" aria-label="Experiments"><button class="active" data-tab="calculate" aria-current="page"><b>01</b><span>Calculate</span></button><button data-tab="cruise"><b>02</b><span>Cruise</span></button><button data-tab="compare"><b>03</b><span>Compare</span></button><button data-tab="evidence"><b>04</b><span>Evidence</span></button></nav>
@@ -35,5 +77,5 @@
 <section id="evidence-view" class="view" hidden><div class="section-title"><p class="eyebrow">UNDERSTAND THE MODEL</p><h2>Evidence before precision.</h2><p>Numerical correctness and aircraft accuracy are different questions.</p></div><div class="evidence-card"><span class="tag">Known limitation</span><h3>Real-world fuel accuracy is not established.</h3><p>The fuel curve is the OpenAP 2.6.1 generic curve scaled to the GE90-115B. No independent B777 fuel measurements are included.</p><p>Temperature affects the atmosphere and speed. Direct engine-temperature effects, wave drag and buffet are not modeled. Thrust availability is an ISA reference.</p></div><div class="details-card"><h3>Bring your own reference data</h3><p>Fit a fuel multiplier on training flights and evaluate separate test flights. Data stay on this device; no fit is applied automatically.</p><label class="file-label">Reference dataset · JSON<input id="reference-file" type="file" accept=".json,application/json"></label><button class="secondary" id="validate" disabled>Evaluate reference data</button><div id="validation-result"></div></div><div class="sources"><h3>Model & sources</h3><a href="https://github.com/junzis/openap" target="_blank" rel="noopener">OpenAP source and research ↗</a><a href="https://www.boeing.com/commercial/777" target="_blank" rel="noopener">Boeing 777 specifications ↗</a><a href="./MODEL.md" target="_blank">Implementation notes & verification ↗</a><a href="./reference_template.json" download>Download empty reference template</a></div></section>
 <div class="result-footer"><p>Research estimates · not for operational flight planning.</p><button class="text-button" id="export-json" disabled>Export results ↓</button></div><details class="model-warnings"><summary>Calculation notes</summary><ul id="warnings"><li>Results will include model assumptions and any screening warnings.</li></ul></details>
 </section></div>
-<footer class="page-footer"><span>B777 PERFORMANCE LAB</span><span>Python-powered · OpenAP-derived model · No affiliation with Boeing or GE</span></footer>
+<footer class="page-footer"><span>B777 Performance Lab</span><span>Python model derived from OpenAP 2.6.1. Not affiliated with Boeing or GE.</span></footer>
 </main><script type="module" src="./app.js"></script></body></html>

@@ -22,6 +22,12 @@ Runtime version: 0.27.7. Downloaded at runtime from jsDelivr; not bundled in thi
 archive. The Node development dependency uses the same pinned release.
 Repository and licensing: https://github.com/pyodide/pyodide
 
+## IBM Plex fonts
+
+IBM Plex Sans and IBM Plex Mono, Copyright © 2017 IBM Corp., with Reserved Font
+Name "Plex". Latin subsets from Fontsource 5.2.6 are bundled in `fonts/` under the
+SIL Open Font License 1.1; the full license is in `fonts/OFL.txt`.
+
 ## Project development
 
 This implementation was developed with AI assistance. It does not claim authorship
