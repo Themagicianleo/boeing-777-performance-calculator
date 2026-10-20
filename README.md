@@ -127,6 +127,7 @@ established.
 - `dist/python/b777/`: atmosphere, engine adapter, model, integration and evaluation.
 - `dist/worker.js`: loads Python and accepts JSON calculation requests.
 - `dist/app.js`, `style.css`, `index.html`: interface and presentation only.
+- `dist/plane.svg`: generic, unbranded 777-300ER illustration used in the header.
 - `reference/`: desktop implementation for numerical comparisons.
 - `tests/`: parity and WebAssembly checks.
 - `b777_calculator.py`: local web server and JSON command-line experiments.
