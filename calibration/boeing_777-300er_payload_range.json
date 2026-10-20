@@ -1,0 +1,22 @@
+{
+  "source": "Boeing, 777-200LR/-300ER/-Freighter Airplane Characteristics for Airport Planning (D6-58329), Rev G, section 3.2.2: Payload/Range for 0.84 Mach Cruise, Model 777-300ER (GE90-115BL engines)",
+  "source_url": "https://www.boeing.com/content/dam/boeing/v2/airports/acaps/777-200LR-300ER-F_Rev_G.pdf",
+  "chart_conditions": ["standard day, zero wind", "Mach 0.84 cruise", "step climb at 2,000 ft increments", "normal power extraction and air-conditioning bleed", "typical mission rules"],
+  "digitization": "Read from a screenshot of the chart by locating grid lines (59.0 px per 10,000 lb, 117.8 px per 1,000 nmi) and tracing each brake-release gross weight line. Estimated reading uncertainty: about +/-30 nmi and +/-1,000 lb.",
+  "max_zero_fuel_weight_lb": 524000,
+  "fuel_capacity_lb": 320860,
+  "points": [
+    {"label": "MZFW, 575k lb", "zfw_lb": 524000, "brake_release_lb": 575000, "range_nmi": 836},
+    {"label": "MZFW, 600k lb", "zfw_lb": 524000, "brake_release_lb": 600000, "range_nmi": 1524},
+    {"label": "MZFW, 625k lb", "zfw_lb": 524000, "brake_release_lb": 625000, "range_nmi": 2186},
+    {"label": "MZFW, 650k lb", "zfw_lb": 524000, "brake_release_lb": 650000, "range_nmi": 2818},
+    {"label": "MZFW, 675k lb", "zfw_lb": 524000, "brake_release_lb": 675000, "range_nmi": 3434},
+    {"label": "MZFW, 700k lb", "zfw_lb": 524000, "brake_release_lb": 700000, "range_nmi": 4024},
+    {"label": "MZFW, 725k lb", "zfw_lb": 524000, "brake_release_lb": 725000, "range_nmi": 4597},
+    {"label": "MZFW, 750k lb", "zfw_lb": 524000, "brake_release_lb": 750000, "range_nmi": 5144},
+    {"label": "MZFW, MTOW 775k lb", "zfw_lb": 524000, "brake_release_lb": 775000, "range_nmi": 5675},
+    {"label": "MTOW, full tanks", "zfw_lb": 454140, "brake_release_lb": 775000, "range_nmi": 7860},
+    {"label": "Full tanks, 430k lb ZFW", "zfw_lb": 430000, "brake_release_lb": 750860, "range_nmi": 8190},
+    {"label": "Full tanks, 410k lb ZFW", "zfw_lb": 410000, "brake_release_lb": 730860, "range_nmi": 8460}
+  ]
+}

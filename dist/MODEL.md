@@ -40,6 +40,43 @@ Cruise integrates dm/dt = -fuel_flow(m) using midpoint integration, stopping at
 the requested distance or chosen protected-fuel floor. This excludes takeoff,
 taxi, climb, descent, APU and regulatory reserve calculations.
 
+## Calibration to Boeing's payload/range chart
+
+The raw OpenAP model under-predicts range by about 29% against Boeing's published
+payload/range chart for the 777-300ER (D6-58329 Rev G, section 3.2.2: Mach 0.84,
+standard day, zero wind, 2,000 ft step climbs, typical mission rules). By default
+the OpenAP fuel curve is therefore multiplied by 0.7076. Untick the calibration in
+Engine & model settings, or pass `--uncalibrated`, for the raw OpenAP model.
+
+Method (`calibration/calibrate.py`): twelve chart points were digitized
+(`calibration/boeing_777-300er_payload_range.json`, about ±30 nmi reading error).
+Each is flown as a cruise-equivalent mission at Mach 0.84, choosing the best
+2,000 ft level from FL290 to FL410 that passes screening. Trip fuel is the
+brake-release fuel minus a fixed allowance, divided by 1.05 for an assumed 5%
+contingency. The fuel factor and the fixed allowance (10.7 t: take-off, climb and
+descent extras plus fixed reserves) are fitted by least squares on range.
+
+| | Value |
+|---|---|
+| Fitted fuel factor | 0.7076 |
+| Fitted fixed allowance | 10,700 kg |
+| RMS range error, 12 points | 22 nmi |
+| Factor with 0% / 10% contingency | 0.754 / 0.667 |
+| Equivalent drag-only fit | drag ×0.71, RMS 25 nmi |
+
+What this does and does not establish:
+- Range data constrain total fuel burn, not how it splits between drag and engine
+  efficiency. A drag-only correction fits as well. Displayed drag, thrust and
+  lift-to-drag ratio remain OpenAP's uncalibrated values (L/D about 14, which is
+  probably low for a 777 in cruise).
+- Boeing does not state its "typical mission rules"; the contingency assumption
+  moves the factor by about ±6%.
+- The chart is Boeing's design-level performance, not measured airline fuel flow.
+  Individual aircraft, engine deterioration and operating procedures differ.
+
+With calibration, the default case (250,000 kg, 35,000 ft, Mach 0.84, ISA) is
+7,579 kg/h, and the default 1,500 nmi segment burns 22,875 kg.
+
 ## Verification completed
 
 - Four parity tests passed, including 81 flight states, manual-thrust/TSFC cases,
@@ -48,8 +85,8 @@ taxi, climb, descent, APU and regulatory reserve calculations.
   implementation within an absolute 1e-7 tolerance in their reported units at
   the tested states.
 - Seven checks passed under the pinned Pyodide runtime in Node.
-- Default fuel estimate: 10,710.224648 kg/h total. A 1,500 nmi default segment
-  burned 31,997.461084 kg in this model. These are generated examples, not observations.
+- Uncalibrated default fuel estimate: 10,710.224648 kg/h total. A 1,500 nmi default
+  segment burned 31,997.461084 kg. These are generated examples, not observations.
 - JavaScript syntax and static local asset references were checked.
 
 Interactive browser and real-device verification remain outstanding. Matching a
@@ -77,6 +114,7 @@ Sources:
 - https://github.com/junzis/openap
 - https://openap.dev/fuel_emission.html
 - https://www.boeing.com/commercial/777
+- https://www.boeing.com/content/dam/boeing/v2/airports/acaps/777-200LR-300ER-F_Rev_G.pdf
 - https://www.grc.nasa.gov/www/k-12/airplane/sfc.html
 
 Licenses and modifications: THIRD_PARTY_NOTICES.md.

@@ -25,6 +25,14 @@ The local launcher works without internet access. Inputs and uploaded reference
 data stay on the device, using browser Python or the loopback Python server.
 Hosting providers and the runtime CDN still receive normal asset requests.
 
+## Calibration
+
+By default the fuel curve is calibrated to Boeing's published 777-300ER
+payload/range chart (factor 0.7076, 22 nmi RMS over 12 chart points). The raw OpenAP
+model is still available with `--uncalibrated` or the checkbox in Engine & model
+settings. Method, assumptions and limits are in `dist/MODEL.md`; reproduce the fit
+with `python calibration/calibrate.py`.
+
 ## Run locally
 
 For development, run the local Python launcher (Python 3.10+; no extra packages):
@@ -84,6 +92,7 @@ The local launcher and model can be checked without installing dependencies:
 
 ```bash
 python -m unittest discover -s tests -p test_local.py -v
+python -m unittest discover -s tests -p test_calibration.py -v
 ```
 
 The original desktop-reference and WebAssembly checks require their dependencies:
@@ -127,9 +136,10 @@ established.
 - `dist/python/b777/`: atmosphere, engine adapter, model, integration and evaluation.
 - `dist/worker.js`: loads Python and accepts JSON calculation requests.
 - `dist/app.js`, `style.css`, `index.html`: interface and presentation only.
-- `dist/plane.svg`: generic, unbranded 777-300ER illustration used in the header.
+- `dist/fonts/`: self-hosted IBM Plex Sans and Plex Mono (SIL Open Font License, `OFL.txt`).
 - `reference/`: desktop implementation for numerical comparisons.
-- `tests/`: parity and WebAssembly checks.
+- `tests/`: parity, calibration and WebAssembly checks.
+- `calibration/`: digitized Boeing payload/range points, fitting script and result.
 - `b777_calculator.py`: local web server and JSON command-line experiments.
 - `PROJECT_CONTEXT.md`: source commit and recovered ChatGPT project requirements.
 

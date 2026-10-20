@@ -101,6 +101,7 @@ def parser():
     cli.add_argument("--fuel-scale", type=float, default=1)
     cli.add_argument("--drag-scale", type=float, default=1)
     cli.add_argument("--tsfc-kg-kn-h", type=float)
+    cli.add_argument("--uncalibrated", action="store_true", help="Use the raw OpenAP fuel curve without the Boeing payload/range calibration")
     cli.add_argument("--distance-nmi", type=float, default=1500)
     cli.add_argument("--zero-fuel-mass-kg", type=float, default=200000)
     cli.add_argument("--protected-fuel-kg", type=float, default=8000)
@@ -123,7 +124,8 @@ def main(argv=None):
         result = json.loads(dispatch(json.dumps({
             "action": args.action,
             "condition": {key: getattr(args, key) for key in condition_keys},
-            "settings": {key: getattr(args, key) for key in ("fuel_scale", "drag_scale", "tsfc_kg_kn_h")},
+            "settings": {**{key: getattr(args, key) for key in ("fuel_scale", "drag_scale", "tsfc_kg_kn_h")},
+                         "calibrated": not args.uncalibrated},
             "cruise": {key: getattr(args, key) for key in cruise_keys},
             "thrust_kn": args.thrust_kn,
         })))
