@@ -51,15 +51,15 @@ class LocalCalculatorTests(unittest.TestCase):
     def test_snapshot_and_headwind_physics(self):
         base = self.calculate({"action": "snapshot"})["result"]
         wind = self.calculate({"condition": {"headwind_kt": 50}})["result"]
-        self.assertAlmostEqual(base["fuel_total_kg_h"], 10710.224648, places=5)
+        self.assertAlmostEqual(base["fuel_total_kg_h"], 7578.554961, places=5)
         self.assertEqual(base["fuel_total_kg_h"], wind["fuel_total_kg_h"])
         self.assertGreater(wind["fuel_kg_nmi"], base["fuel_kg_nmi"])
 
     def test_cruise_completion_and_protected_fuel(self):
         result = self.calculate({"action": "cruise", "cruise": {"distance_nmi": 1500}})["result"]
         self.assertTrue(result["completed"])
-        self.assertAlmostEqual(result["fuel_burn_kg"], 31997.461084, places=5)
-        stopped = self.calculate({"action": "cruise", "cruise": {"distance_nmi": 2500}})["result"]
+        self.assertAlmostEqual(result["fuel_burn_kg"], 22874.530572, places=5)
+        stopped = self.calculate({"action": "cruise", "cruise": {"distance_nmi": 4000}})["result"]
         self.assertFalse(stopped["completed"])
         self.assertEqual(stopped["points"][-1]["remaining_fuel_kg"], 8000)
 

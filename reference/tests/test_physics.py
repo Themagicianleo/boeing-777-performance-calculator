@@ -94,10 +94,11 @@ class PerformanceTests(unittest.TestCase):
 
         drag = Drag("B77W")
         fuel = FuelFlow("B77W", eng="GE90-115B")
+        model = PerformanceModel(ModelSettings(calibrated=False))
         for mass in (200000, 250000, 300000):
             for altitude in (25000, 35000, 40000):
                 for mach in (0.72, 0.78, 0.84):
-                    output = self.model.snapshot(FlightCondition(mass, altitude, mach))
+                    output = model.snapshot(FlightCondition(mass, altitude, mach))
                     reference_drag = float(drag.clean(mass, output.tas_kt, altitude)) / 1000
                     self.assertLess(abs(output.drag_kn / reference_drag - 1), 0.001)
                     reference_fuel = float(fuel.at_thrust(output.total_thrust_kn * 1000)) * 3600

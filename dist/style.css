@@ -191,3 +191,6 @@ button:disabled span{pointer-events:none}
 .photo figcaption span{font-family:var(--mono);color:var(--ink);white-space:nowrap}
 @media(max-width:760px){.photo{margin-top:16px;margin-left:-16px;margin-right:-16px}.photo figcaption{padding:8px 16px 0}}
 @media(max-width:760px){.plate{display:none}.intro{padding-bottom:22px}}
+label.check{display:flex;align-items:center;gap:10px;color:var(--ink);margin-bottom:6px}
+label.check input{width:18px;height:18px;min-height:0;margin:0;accent-color:var(--ink)}
+label.check span{margin-left:auto}

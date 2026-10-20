@@ -9,10 +9,14 @@ OPENAP_VERSION = "2.6.1"
 AIRCRAFT = "B77W"
 ENGINE = "GE90-115B"
 MTOW_KG = 351530.0  # Boeing product specification, not OpenAP's rounded 351500.
+# Fuel-flow multiplier fitted to Boeing's published 777-300ER payload/range chart
+# (D6-58329 Rev G, section 3.2.2) with a 5% contingency assumption; 0.754 with no
+# contingency, 0.667 with 10%. See calibration/calibrate.py and calibration/result.json.
+BOEING_FUEL_CALIBRATION = 0.7076
 NOTICE = (
-    "Research estimate; no independent B777 fuel-flow validation has been supplied. "
-    "OpenAP 2.6.1 uses a generic engine-scaled fuel curve for B77W. "
-    "Not for dispatch, cockpit use, or operational fuel planning."
+    "Research estimate. OpenAP 2.6.1 drag and a generic engine-scaled fuel curve, with "
+    "one fuel-flow factor fitted to Boeing's published payload/range chart. Not validated "
+    "against measured fuel flow. Not for dispatch, cockpit use, or operational fuel planning."
 )
 
 
@@ -44,6 +48,7 @@ class ModelSettings:
     fuel_scale: float = 1.0
     drag_scale: float = 1.0
     tsfc_kg_kn_h: float | None = None  # None selects OpenAP.
+    calibrated: bool = True  # Apply BOEING_FUEL_CALIBRATION to the OpenAP fuel curve.
 
     def validate(self) -> None:
         bounded("fuel scale", self.fuel_scale, 0.5, 1.5)
@@ -120,6 +125,9 @@ class PerformanceModel:
         if self.settings.tsfc_kg_kn_h is None:
             fuel_kg_h = float(self.fuel_model.at_thrust(thrust_kn * 1000)) * 3600
             model_name = "OpenAP 2.6.1 generic curve scaled to GE90-115B"
+            if self.settings.calibrated:
+                fuel_kg_h *= BOEING_FUEL_CALIBRATION
+                model_name += f", Boeing payload/range calibration x{BOEING_FUEL_CALIBRATION}"
         else:
             fuel_kg_h = self.settings.tsfc_kg_kn_h * thrust_kn
             model_name = "User-supplied constant TSFC"
@@ -146,7 +154,7 @@ class PerformanceModel:
         if total_thrust_kn is not None and abs(thrust_kn - drag_kn) > 0.01 * drag_kn:
             notes.append("Manual thrust does not balance drag: instantaneous snapshot only.")
         if self.settings != ModelSettings():
-            notes.append("User model settings differ from the uncalibrated baseline.")
+            notes.append("User model settings differ from the default calibrated model.")
         return Snapshot(
             condition,
             air.temperature_k - 273.15,
@@ -180,7 +188,8 @@ class PerformanceModel:
             "drag_polar": self.polar,
             "settings": asdict(self.settings),
             "mtow_kg": MTOW_KG,
-            "status": "unvalidated_against_independent_B777_measurements",
+            "status": "calibrated_to_boeing_payload_range_not_to_measured_fuel_flow",
+            "boeing_fuel_calibration": BOEING_FUEL_CALIBRATION if self.settings.calibrated else None,
             "fuel_model_family": "generic_scaled"
             if self.settings.tsfc_kg_kn_h is None
             else "constant_user_tsfc",

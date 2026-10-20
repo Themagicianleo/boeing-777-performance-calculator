@@ -1,0 +1,126 @@
+{
+  "source": "Boeing, 777-200LR/-300ER/-Freighter Airplane Characteristics for Airport Planning (D6-58329), Rev G, section 3.2.2: Payload/Range for 0.84 Mach Cruise, Model 777-300ER (GE90-115BL engines)",
+  "assumptions": {
+    "contingency_fraction": 0.05,
+    "cruise_mach": 0.84,
+    "levels_ft": [
+      29000,
+      41000,
+      2000
+    ],
+    "mission": "cruise-equivalent; fixed allowance carried as unburned fuel"
+  },
+  "fuel_scale_fit": {
+    "fuel_scale": 0.7076,
+    "allowance_kg": 10700,
+    "rms_nmi": 22.2245
+  },
+  "drag_scale_fit": {
+    "drag_scale": 0.71,
+    "allowance_kg": 10500,
+    "rms_nmi": 24.7264
+  },
+  "contingency_sensitivity": {
+    "0.00": {
+      "fuel_scale": 0.7538,
+      "allowance_kg": 10300,
+      "rms_nmi": 16.7739
+    },
+    "0.05": {
+      "fuel_scale": 0.7076,
+      "allowance_kg": 10700,
+      "rms_nmi": 22.2245
+    },
+    "0.10": {
+      "fuel_scale": 0.667,
+      "allowance_kg": 11000,
+      "rms_nmi": 28.1063
+    }
+  },
+  "points": [
+    {
+      "label": "MZFW, 575k lb",
+      "boeing_nmi": 836,
+      "uncalibrated_nmi": 570,
+      "fuel_scale_fit_nmi": 806,
+      "drag_scale_fit_nmi": 816
+    },
+    {
+      "label": "MZFW, 600k lb",
+      "boeing_nmi": 1524,
+      "uncalibrated_nmi": 1069,
+      "fuel_scale_fit_nmi": 1511,
+      "drag_scale_fit_nmi": 1518
+    },
+    {
+      "label": "MZFW, 625k lb",
+      "boeing_nmi": 2186,
+      "uncalibrated_nmi": 1544,
+      "fuel_scale_fit_nmi": 2183,
+      "drag_scale_fit_nmi": 2188
+    },
+    {
+      "label": "MZFW, 650k lb",
+      "boeing_nmi": 2818,
+      "uncalibrated_nmi": 2002,
+      "fuel_scale_fit_nmi": 2829,
+      "drag_scale_fit_nmi": 2831
+    },
+    {
+      "label": "MZFW, 675k lb",
+      "boeing_nmi": 3434,
+      "uncalibrated_nmi": 2439,
+      "fuel_scale_fit_nmi": 3447,
+      "drag_scale_fit_nmi": 3449
+    },
+    {
+      "label": "MZFW, 700k lb",
+      "boeing_nmi": 4024,
+      "uncalibrated_nmi": 2860,
+      "fuel_scale_fit_nmi": 4042,
+      "drag_scale_fit_nmi": 4041
+    },
+    {
+      "label": "MZFW, 725k lb",
+      "boeing_nmi": 4597,
+      "uncalibrated_nmi": 3265,
+      "fuel_scale_fit_nmi": 4614,
+      "drag_scale_fit_nmi": 4614
+    },
+    {
+      "label": "MZFW, 750k lb",
+      "boeing_nmi": 5144,
+      "uncalibrated_nmi": 3656,
+      "fuel_scale_fit_nmi": 5167,
+      "drag_scale_fit_nmi": 5166
+    },
+    {
+      "label": "MZFW, MTOW 775k lb",
+      "boeing_nmi": 5675,
+      "uncalibrated_nmi": 4035,
+      "fuel_scale_fit_nmi": 5702,
+      "drag_scale_fit_nmi": 5700
+    },
+    {
+      "label": "MTOW, full tanks",
+      "boeing_nmi": 7860,
+      "uncalibrated_nmi": 5572,
+      "fuel_scale_fit_nmi": 7874,
+      "drag_scale_fit_nmi": 7864
+    },
+    {
+      "label": "Full tanks, 430k lb ZFW",
+      "boeing_nmi": 8190,
+      "uncalibrated_nmi": 5778,
+      "fuel_scale_fit_nmi": 8166,
+      "drag_scale_fit_nmi": 8153
+    },
+    {
+      "label": "Full tanks, 410k lb ZFW",
+      "boeing_nmi": 8460,
+      "uncalibrated_nmi": 5956,
+      "fuel_scale_fit_nmi": 8417,
+      "drag_scale_fit_nmi": 8401
+    }
+  ]
+}

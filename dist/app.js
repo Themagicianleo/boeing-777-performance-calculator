@@ -82,7 +82,7 @@ function launchWorker() {
 function showError(message) { $('#error').textContent = message; $('#error').hidden = false; setStatus('Calculation not completed. Check the inputs.'); }
 function values(form) {
   const result = {};
-  for (const [name, raw] of new FormData(form)) result[name] = raw.trim() === '' ? null : Number(raw);
+  for (const [name, raw] of new FormData(form)) if (name !== 'calibrated') result[name] = raw.trim() === '' ? null : Number(raw);
   return result;
 }
 function getPayload(action) {
@@ -90,7 +90,7 @@ function getPayload(action) {
   return {
     action,
     condition: Object.fromEntries(['mass_kg','altitude_ft','mach','isa_delta_c','headwind_kt','crosswind_kt'].map(k => [k,input[k]])),
-    settings: {fuel_scale: input.fuel_scale, drag_scale: input.drag_scale, tsfc_kg_kn_h: input.tsfc},
+    settings: {fuel_scale: input.fuel_scale, drag_scale: input.drag_scale, tsfc_kg_kn_h: input.tsfc, calibrated: fields.elements.calibrated.checked},
     thrust_kn: input.thrust_kn,
     cruise: values(cruiseForm),
   };
