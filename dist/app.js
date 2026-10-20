@@ -29,6 +29,7 @@ function launchWorker() {
   worker?.terminate();
   ready = false; busy = false; pending = null; latest = null;
   $('#retry').hidden = true;
+  $('.runtime').classList.remove('is-ready');
   $('#runtime-state').textContent = 'Loading Python…';
   setStatus('Starting the Python engine. First browser load may take a moment.');
   buttons();
@@ -50,6 +51,7 @@ function launchWorker() {
     if (data.type === 'ready') {
       clearTimeout(timer); ready = true;
       $('#runtime-state').textContent = data.runtime === 'local' ? 'Local Python ready' : 'Browser Python ready';
+      $('.runtime').classList.add('is-ready');
       buttons(); run('snapshot', false); return;
     }
     if (data.type === 'init-error') {
@@ -128,6 +130,18 @@ function changeTab(name) {
     if (active) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
   });
   document.querySelectorAll('.view').forEach(view => view.hidden = view.id !== name + '-view');
+  $('.workspace').dataset.view = name;
+}
+function openTab(name) {
+  changeTab(name);
+  // On phones the tab content sits under the tab bar; keep it in view after switching.
+  const workspace = $('.workspace');
+  if (matchMedia('(max-width: 760px)').matches && workspace.getBoundingClientRect().top < 0) {
+    workspace.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+  // Show results on first visit instead of an empty panel.
+  if (name === 'cruise' && $('#cruise-output').hidden) run('cruise', false);
+  if (name === 'compare' && !$('#comparisons').children.length) run('compare', false);
 }
 function renderWarnings(warnings) {
   $('#warnings').replaceChildren(...warnings.map(text => node('li',text)));
@@ -216,7 +230,7 @@ function download(name, content, type) {
 fields.addEventListener('submit',event=>{event.preventDefault();run('snapshot');});
 cruiseForm.addEventListener('submit',event=>{event.preventDefault();run('cruise');});
 document.querySelectorAll('[data-run]').forEach(button=>{if(button.dataset.run !== 'cruise') button.addEventListener('click',()=>run(button.dataset.run));});
-document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>changeTab(button.dataset.tab)));
+document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>openTab(button.dataset.tab)));
 fields.addEventListener('input',invalidate);cruiseForm.addEventListener('input',invalidate);
 $('#reference-file').addEventListener('change',invalidate);
 $('#reset').addEventListener('click',()=>{fields.reset();cruiseForm.reset();invalidate();if(ready&&!busy)run('snapshot',false);});
