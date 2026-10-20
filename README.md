@@ -109,9 +109,17 @@ dependencies are not installed in this workspace.
 
 The local interface was checked in the Codex browser: initial calculation,
 edited headwind, reset, a 1,500 nmi cruise, chart, comparisons and a 390 px
-viewport. Download automation timed out, so JSON/CSV downloads and actual phone
-behavior still need verification. No independent B777 aircraft-accuracy
-percentage is established.
+viewport.
+
+On 20 October 2026 the remaining checks were rerun on Linux (Python 3.13,
+Node 22): 8 launcher, 4 OpenAP parity, 21 reference and 7 Pyodide checks passed.
+A headless Chromium session emulating an iPhone 13 (390 px) drove both the local
+CPython server and the static Pyodide 0.27.7 build: calculation, 1,500 nmi
+cruise, JSON export and CSV export (373 trace rows) all succeeded with identical
+results, no horizontal overflow and no console errors. Pyodide was served from
+the pinned npm package rather than jsDelivr for that run. Behaviour on physical
+phones is still unverified. No independent B777 aircraft-accuracy percentage is
+established.
 
 ## Structure
 
