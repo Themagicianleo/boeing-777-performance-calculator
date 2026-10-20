@@ -28,6 +28,14 @@ IBM Plex Sans and IBM Plex Mono, Copyright © 2017 IBM Corp., with Reserved Font
 Name "Plex". Latin subsets from Fontsource 5.2.6 are bundled in `fonts/` under the
 SIL Open Font License 1.1; the full license is in `fonts/OFL.txt`.
 
+## Header photograph
+
+`photo-777-300er.jpg` and `photo-777-300er-900.jpg`: Emirates Boeing 777-300ER A6-EBM
+landing at London Heathrow, by Adrian Pingstone, released into the public domain
+(Wikimedia Commons, `File:Emirates_b777-300er_a6-ebm_arp.jpg`). Cropped, resized and
+converted to a two-tone print for this app. Airline names and marks visible in the
+photo belong to their owners; no affiliation or endorsement is implied.
+
 ## Project development
 
 This implementation was developed with AI assistance. It does not claim authorship

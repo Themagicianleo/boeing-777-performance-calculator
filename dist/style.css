@@ -185,3 +185,9 @@ button:disabled span{pointer-events:none}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 #cruise-output{margin-top:24px}
+.photo{margin:24px 0 0}
+.photo img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover;object-position:50% 45%;background:var(--ink-2)}
+.photo figcaption{display:flex;gap:12px;padding:10px 0 0;font-size:12px;line-height:1.5;color:var(--ink-3)}
+.photo figcaption span{font-family:var(--mono);color:var(--ink);white-space:nowrap}
+@media(max-width:760px){.photo{margin-top:16px;margin-left:-16px;margin-right:-16px}.photo figcaption{padding:8px 16px 0}}
+@media(max-width:760px){.plate{display:none}.intro{padding-bottom:22px}}
